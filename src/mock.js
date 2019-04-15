@@ -1,11 +1,17 @@
 import Mock from 'mockjs'
 const Random = Mock.Random
-// 登录
+// ***********************************************
+// Mock.mock(Interface, request, fn(option)
+//  * option is request body
+// ***********************************************
+
+//  * login
 Mock.mock('/api/login', 'post', (option) => {
   let { username, password } = JSON.parse(option.body)
   return (username === 'admin' && password === 'admin')
 })
-// 用户数据
+
+//   * userdata
 const userData = () => {
   let users = []
   for (let i = 0; i < 10; i++) {
@@ -21,10 +27,15 @@ const userData = () => {
   }
   return users
 }
-Mock.mock('/api/users', userData)
+Mock.mock('/api/users', (requestBody) => {
+  console.log(requestBody)
+  return userData
+})
+
+// test
 Mock.mock(`/api/zhh`, `post`, (option) => {
   console.log(JSON.parse(option.body))
-  console.log(Mock.Random.city())
+  console.log(Mock.Random)
   return {
     name: 'zhh',
     list: [1, 2, 3],

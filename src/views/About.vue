@@ -1,29 +1,25 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
-    <h1>{{ admin }}</h1>
-    <button @click="fn">请求</button>
-    <button @click="fn2">请求2</button>
-    <button @click="fn3">请求3</button>
+    <h1>Opens the console</h1>
+    <div class="box">
+      <button @click="login">request-post</button>
+      <button @click="arbitrarily">request-Arbitrarily</button>
+      <button @click="fn3">request3</button>
+    </div>
   </div>
 </template>
 <script>
 export default {
-  data: function () {
-    return {
-      admin: 'sss'
-    }
-  },
   methods: {
-    async fn () {
+    async login () {
       let res = await this.$http.post(`/api/login`, {
         username: 'admin',
         password: 'admin'
       })
       console.log(res)
     },
-    async fn2 () {
-      let res = await this.$http.post(`/api/users`)
+    async arbitrarily () {
+      let res = await this.$http.put(`/api/users`)
       console.log(res)
     },
     async fn3 () {
@@ -33,8 +29,26 @@ export default {
       })
       console.log(res)
     }
-  },
+  }
 }
 </script>
 <style lang="less">
+.box {
+  width: 150px;
+  position: absolute;
+  left: 50%;
+  top: 300px;
+  transform: translate(-50%, -50%);
+  button {
+    margin-right: 20px;
+    margin-bottom: 20px;
+    width: 150px;
+    height: 35px;
+    display: block;
+    border-radius: 4px;
+    outline: 0;
+    appearance: none;
+    -moz-appearance: none;
+  }
+}
 </style>
